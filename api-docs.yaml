@@ -1,0 +1,118 @@
+definitions:
+  context:
+    properties:
+      graph:
+        description: 'graph type (LIE, PIE, GAUGE)'
+        type: string
+      interval:
+        description: time interval to capture the metric
+        type: string
+      kpiId:
+        description: KPI ID (if topic is related to a KPI)
+        type: string
+      metricCollectionType:
+        description: metric collection type (if topic is related to a metric)
+        type: string
+      metricId:
+        description: metric ID (if topic is related to a metric)
+        type: string
+      name:
+        description: metric name
+        type: string
+      unit:
+        description: metric unit
+        type: string
+  record:
+    properties:
+      value:
+        $ref: '#/definitions/value'
+        description: value included in the records list
+  signalling_topic_data:
+    properties:
+      expId:
+        description: expId set to 'internal'
+        type: string
+      topic:
+        description: signalling topic name
+        type: string
+  value:
+    properties:
+      action:
+        description: either subscribe or unsubscribe
+        type: string
+      context:
+        $ref: '#/definitions/context'
+        description: additional information
+      expId:
+        description: experiment ID
+        type: string
+      topic:
+        description: topic name
+        type: string
+info:
+  title: DCM REST API
+  version: '1.0'
+paths:
+  /:
+    get:
+      description: ''
+      responses:
+        '200':
+          description: OK
+      summary: Get status.
+  '/dcm/publish/{topic}':
+    post:
+      description: ''
+      parameters:
+        - description: topic name
+          in: path
+          name: topic
+          type: string
+        - description: records sent in the message
+          in: body
+          items:
+            $ref: '#/definitions/record'
+          name: records
+          type: array
+      responses:
+        '201':
+          description: accepted request
+        '400':
+          description: error processing the request
+      summary: Publish data in a topic.
+  /dcm/subscribe:
+    post:
+      description: ''
+      parameters:
+        - in: body
+          name: signalling_topic_data
+          schema:
+            $ref: '#/definitions/signalling_topic_data'
+      responses:
+        '201':
+          description: accepted request
+        '400':
+          description: error processing the request
+      summary: Subscribe to signalling topic.
+  /dcm/unsubscribe:
+    delete:
+      description: ''
+      parameters:
+        - in: body
+          name: signalling_topic_data
+          schema:
+            $ref: '#/definitions/signalling_topic_data'
+      responses:
+        '201':
+          description: accepted request
+        '400':
+          description: error processing the request
+      summary: Unsubscribe to signalling topic.
+  /spec:
+    get:
+      description: ''
+      responses:
+        swagger:
+          description: swagger specification
+      summary: Get swagger specification.
+swagger: '2.0'

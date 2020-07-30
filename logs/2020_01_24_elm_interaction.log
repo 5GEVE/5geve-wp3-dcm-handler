@@ -1,0 +1,22 @@
+24/01/2020 11:35:28 INFO Info received in topic signalling.metric.infrastructure
+24/01/2020 11:35:28 INFO records raw list: []
+24/01/2020 11:35:28 INFO Info received in topic signalling.metric.application
+24/01/2020 11:35:28 INFO records raw list: [{'value': {'expId': '2', 'action': 'subscribe', 'topic': '2.italy_turin.application_metric.tracked_devices'}}, {'value': {'expId': '2', 'action': 'subscribe', 'topic': '2.italy_turin.application_metric.processed_records'}}, {'value': {'expId': '2', 'action': 'subscribe', 'topic': '2.italy_turin.application_metric.tracking_response_time'}}, {'value': {'expId': '2', 'action': 'subscribe', 'topic': '2.italy_turin.application_metric.tracking_memory_usage'}}]
+24/01/2020 11:35:28 INFO Value received: topic 2.italy_turin.application_metric.tracked_devices - expId 2 - action subscribe
+24/01/2020 11:35:28 INFO Value received: topic 2.italy_turin.application_metric.processed_records - expId 2 - action subscribe
+24/01/2020 11:35:28 INFO Value received: topic 2.italy_turin.application_metric.tracking_response_time - expId 2 - action subscribe
+24/01/2020 11:35:28 INFO Value received: topic 2.italy_turin.application_metric.tracking_memory_usage - expId 2 - action subscribe
+24/01/2020 11:35:28 INFO Info received in topic signalling.kpi
+24/01/2020 11:35:28 INFO records raw list: []
+
+
+24/01/2020 11:41:22 INFO Info received in topic signalling.metric.infrastructure
+24/01/2020 11:41:22 INFO records raw list: []
+24/01/2020 11:41:22 INFO Info received in topic signalling.metric.application
+24/01/2020 11:41:22 INFO records raw list: [{'value': {'expId': '2', 'action': 'unsubscribe', 'topic': '2.italy_turin.application_metric.tracked_devices'}}, {'value': {'expId': '2', 'action': 'unsubscribe', 'topic': '2.italy_turin.application_metric.processed_records'}}, {'value': {'expId': '2', 'action': 'unsubscribe', 'topic': '2.italy_turin.application_metric.tracking_response_time'}}, {'value': {'expId': '2', 'action': 'unsubscribe', 'topic': '2.italy_turin.application_metric.tracking_memory_usage'}}]
+24/01/2020 11:41:22 INFO Value received: topic 2.italy_turin.application_metric.tracked_devices - expId 2 - action unsubscribe
+24/01/2020 11:41:22 INFO Value received: topic 2.italy_turin.application_metric.processed_records - expId 2 - action unsubscribe
+24/01/2020 11:41:22 INFO Value received: topic 2.italy_turin.application_metric.tracking_response_time - expId 2 - action unsubscribe
+24/01/2020 11:41:22 INFO Value received: topic 2.italy_turin.application_metric.tracking_memory_usage - expId 2 - action unsubscribe
+24/01/2020 11:41:22 INFO Info received in topic signalling.kpi
+24/01/2020 11:41:22 INFO records raw list: []

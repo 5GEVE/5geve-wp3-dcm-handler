@@ -1,0 +1,1096 @@
+{
+	"info": {
+		"_postman_id": "99640862-5cde-44df-b554-65caba0cf264",
+		"name": "DCM REST Client Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1st integration",
+			"item": [
+				{
+					"name": "internal",
+					"item": [
+						{
+							"name": "Service status",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{PROTOCOL}}://{{IP_INTERNAL}}:{{PORT}}/",
+									"protocol": "{{PROTOCOL}}",
+									"host": [
+										"{{IP_INTERNAL}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Publish data - Subscribe",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"records\": [\n\t\t{\n\t\t\t\"value\": { \"topic\": \"asti.spain.application_metric.cpu\", \"expId\": \"asti\", \"action\": \"subscribe\", \"context\": {} }\n\t\t},\n\t\t{\n\t\t\t\"value\": { \"topic\": \"asti.spain.application_metric.deviation\", \"expId\": \"asti\", \"action\": \"subscribe\", \"context\": {} }\n\t\t},\n\t\t{\n\t\t\t\"value\": { \"topic\": \"asti.spain.application_metric.latency\", \"expId\": \"asti\", \"action\": \"subscribe\", \"context\": {} }\n\t\t},\n\t\t{\n\t\t\t\"value\": { \"topic\": \"topictest\", \"expId\": \"asti\", \"action\": \"subscribe\", \"context\": {} }\n\t\t}\n\t]\n}\n"
+								},
+								"url": {
+									"raw": "{{PROTOCOL}}://{{IP_INTERNAL}}:{{PORT}}/dcm/publish/signalling.metric.application",
+									"protocol": "{{PROTOCOL}}",
+									"host": [
+										"{{IP_INTERNAL}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"dcm",
+										"publish",
+										"signalling.metric.application"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Publish data - Unsubscribe",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"records\": [\n\t\t{\n\t\t\t\"value\": { \"topic\": \"asti.spain.application_metric.cpu\", \"expId\": \"asti\", \"action\": \"unsubscribe\", \"context\": {} }\n\t\t},\n\t\t{\n\t\t\t\"value\": { \"topic\": \"asti.spain.application_metric.deviation\", \"expId\": \"asti\", \"action\": \"unsubscribe\", \"context\": {} }\n\t\t},\n\t\t{\n\t\t\t\"value\": { \"topic\": \"asti.spain.application_metric.latency\", \"expId\": \"asti\", \"action\": \"unsubscribe\", \"context\": {} }\n\t\t},\n\t\t{\n\t\t\t\"value\": { \"topic\": \"topictest\", \"expId\": \"asti\", \"action\": \"unsubscribe\", \"context\": {} }\n\t\t}\n\t]\n}\n"
+								},
+								"url": {
+									"raw": "{{PROTOCOL}}://{{IP_INTERNAL}}:{{PORT}}/dcm/publish/signalling.metric.application",
+									"protocol": "{{PROTOCOL}}",
+									"host": [
+										"{{IP_INTERNAL}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"dcm",
+										"publish",
+										"signalling.metric.application"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "d9284aeb-78d8-40e7-997c-8d3832a32980",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "2e60db01-ef5c-41f8-81c8-71c28b86a7dd",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "5tonic",
+					"item": [
+						{
+							"name": "Service status",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{PROTOCOL}}://{{IP_5TONIC}}:{{PORT}}/",
+									"protocol": "{{PROTOCOL}}",
+									"host": [
+										"{{IP_5TONIC}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Publish data - Subscribe",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"records\": [\n\t\t{\n\t\t\t\"value\": { \"topic\": \"asti.spain.application_metric.cpu\", \"expId\": \"asti\", \"action\": \"subscribe\", \"context\": {} }\n\t\t},\n\t\t{\n\t\t\t\"value\": { \"topic\": \"asti.spain.application_metric.deviation\", \"expId\": \"asti\", \"action\": \"subscribe\", \"context\": {} }\n\t\t},\n\t\t{\n\t\t\t\"value\": { \"topic\": \"asti.spain.application_metric.latency\", \"expId\": \"asti\", \"action\": \"subscribe\", \"context\": {} }\n\t\t},\n\t\t{\n\t\t\t\"value\": { \"topic\": \"topictest\", \"expId\": \"asti\", \"action\": \"subscribe\", \"context\": {} }\n\t\t}\n\t]\n}\n"
+								},
+								"url": {
+									"raw": "{{PROTOCOL}}://{{IP_5TONIC}}:{{PORT}}/dcm/publish/signalling.metric.application",
+									"protocol": "{{PROTOCOL}}",
+									"host": [
+										"{{IP_5TONIC}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"dcm",
+										"publish",
+										"signalling.metric.application"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Publish data - Unsubscribe",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"records\": [\n\t\t{\n\t\t\t\"value\": { \"topic\": \"asti.spain.application_metric.cpu\", \"expId\": \"asti\", \"action\": \"unsubscribe\", \"context\": {} }\n\t\t},\n\t\t{\n\t\t\t\"value\": { \"topic\": \"asti.spain.application_metric.deviation\", \"expId\": \"asti\", \"action\": \"unsubscribe\", \"context\": {} }\n\t\t},\n\t\t{\n\t\t\t\"value\": { \"topic\": \"asti.spain.application_metric.latency\", \"expId\": \"asti\", \"action\": \"unsubscribe\", \"context\": {} }\n\t\t},\n\t\t{\n\t\t\t\"value\": { \"topic\": \"topictest\", \"expId\": \"asti\", \"action\": \"unsubscribe\", \"context\": {} }\n\t\t}\n\t]\n}\n"
+								},
+								"url": {
+									"raw": "{{PROTOCOL}}://{{IP_5TONIC}}:{{PORT}}/dcm/publish/signalling.metric.application",
+									"protocol": "{{PROTOCOL}}",
+									"host": [
+										"{{IP_5TONIC}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"dcm",
+										"publish",
+										"signalling.metric.application"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "turin",
+					"item": [
+						{
+							"name": "Service status",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{PROTOCOL}}://{{IP_TURIN}}:{{PORT}}/",
+									"protocol": "{{PROTOCOL}}",
+									"host": [
+										"{{IP_TURIN}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Publish data - Subscribe",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"records\": [\n\t\t{\n\t\t\t\"value\": { \"topic\": \"asti.spain.application_metric.cpu\", \"expId\": \"asti\", \"action\": \"subscribe\", \"context\": {} }\n\t\t},\n\t\t{\n\t\t\t\"value\": { \"topic\": \"asti.spain.application_metric.deviation\", \"expId\": \"asti\", \"action\": \"subscribe\", \"context\": {} }\n\t\t},\n\t\t{\n\t\t\t\"value\": { \"topic\": \"asti.spain.application_metric.latency\", \"expId\": \"asti\", \"action\": \"subscribe\", \"context\": {} }\n\t\t},\n\t\t{\n\t\t\t\"value\": { \"topic\": \"topictest\", \"expId\": \"asti\", \"action\": \"subscribe\", \"context\": {} }\n\t\t}\n\t]\n}\n"
+								},
+								"url": {
+									"raw": "{{PROTOCOL}}://{{IP_TURIN}}:{{PORT}}/dcm/publish/signalling.metric.application",
+									"protocol": "{{PROTOCOL}}",
+									"host": [
+										"{{IP_TURIN}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"dcm",
+										"publish",
+										"signalling.metric.application"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Publish data - Unsubscribe",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"records\": [\n\t\t{\n\t\t\t\"value\": { \"topic\": \"asti.spain.application_metric.cpu\", \"expId\": \"asti\", \"action\": \"unsubscribe\", \"context\": {} }\n\t\t},\n\t\t{\n\t\t\t\"value\": { \"topic\": \"asti.spain.application_metric.deviation\", \"expId\": \"asti\", \"action\": \"unsubscribe\", \"context\": {} }\n\t\t},\n\t\t{\n\t\t\t\"value\": { \"topic\": \"asti.spain.application_metric.latency\", \"expId\": \"asti\", \"action\": \"unsubscribe\", \"context\": {} }\n\t\t},\n\t\t{\n\t\t\t\"value\": { \"topic\": \"topictest\", \"expId\": \"asti\", \"action\": \"unsubscribe\", \"context\": {} }\n\t\t}\n\t]\n}\n"
+								},
+								"url": {
+									"raw": "{{PROTOCOL}}://{{IP_TURIN}}:{{PORT}}/dcm/publish/signalling.metric.application",
+									"protocol": "{{PROTOCOL}}",
+									"host": [
+										"{{IP_TURIN}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"dcm",
+										"publish",
+										"signalling.metric.application"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "859c38ba-72fd-46e0-bd30-58d6e1f9da36",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "09af26b8-63a2-4d04-b0fb-f86a190e3b23",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "2nd integration",
+			"item": [
+				{
+					"name": "internal",
+					"item": [
+						{
+							"name": "Service status",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{PROTOCOL}}://{{IP_INTERNAL}}:{{PORT}}/",
+									"protocol": "{{PROTOCOL}}",
+									"host": [
+										"{{IP_INTERNAL}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Publish data - Subscribe - Infrastructure metrics",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"records\": [\n\t\t{\n\t\t\t\"value\": {\n\t\t\t\t\"topic\": \"uc.4.france_nice.infrastructure_metric.expb_metricId\",\n\t\t\t\t\"expId\": \"4\",\n\t\t\t\t\"action\": \"subscribe\",\n\t\t\t\t\"context\": {\n\t\t\t\t\t\"metricId\": \"expb_metricId\",\n\t\t\t\t\t\"metricCollectionType\": \"CUMULATIVE\",\n\t\t\t\t\t\"graph\": \"LINE\",\n\t\t\t\t\t\"name\": \"expb_metricName\",\n\t\t\t\t\t\"unit\": \"expb_metricUnit\",\n\t\t\t\t\t\"interval\": \"5s\" \n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t]\n}"
+								},
+								"url": {
+									"raw": "{{PROTOCOL}}://{{IP_INTERNAL}}:{{PORT}}/dcm/publish/signalling.metric.infrastructure",
+									"protocol": "{{PROTOCOL}}",
+									"host": [
+										"{{IP_INTERNAL}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"dcm",
+										"publish",
+										"signalling.metric.infrastructure"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Publish data - Subscribe - Application metrics",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"records\": [\n\t\t{\n\t\t\t\"value\": {\n\t\t\t\t\"topic\": \"uc.4.france_nice.application_metric.tracked_devices\",\n\t\t\t\t\"expId\":\"4\", \n\t\t\t\t\"action\":\"subscribe\", \n\t\t\t\t\"context\": {\n\t\t\t\t\t\"metricId\": \"tracked_devices\",\n\t\t\t\t\t\"metricCollectionType\": \"CUMULATIVE\",\n\t\t\t\t\t\"graph\": \"PIE\",\n\t\t\t\t\t\"name\": \"Number of total tracked devices\",\n\t\t\t\t\t\"unit\": \"devices\",\n\t\t\t\t\t\"interval\": \"5s\"\n\t\t\t\t}\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"value\": {\n\t\t\t\t\"topic\":\"uc.4.france_nice.application_metric.processed_records\",\n\t\t\t\t\"expId\":\"4\",\n\t\t\t\t\"action\":\"subscribe\",\n\t\t\t\t\"context\": {\n\t\t\t\t\t\"metricId\": \"processed_records\",\n\t\t\t\t\t\"metricCollectionType\": \"CUMULATIVE\",\n\t\t\t\t\t\"graph\": \"GAUGE\",\n\t\t\t\t\t\"name\": \"Number of total processed records\",\n\t\t\t\t\t\"unit\": \"records\",\n\t\t\t\t\t\"interval\": \"5s\"\n\t\t\t\t}\n\t\t\t}\n\t\t},\n\t\t{ \n\t\t\t\"value\": {\n\t\t\t\t\"topic\": \"uc.4.france_nice.application_metric.tracking_response_time\",\n\t\t\t\t\"expId\": \"4\",\n\t\t\t\t\"action\": \"subscribe\",\n\t\t\t\t\"context\": {\n\t\t\t\t\t\"metricId\": \"tracking_response_time\",\n\t\t\t\t\t\"metricCollectionType\": \"GAUGE\",\n\t\t\t\t\t\"graph\": \"LINE\",\n\t\t\t\t\t\"name\": \"Max response time in milliseconds\",\n\t\t\t\t\t\"unit\": \"ms\",\n\t\t\t\t\t\"interval\": \"1s\"\n\t\t\t\t}\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"value\": {\n\t\t\t\t\"topic\": \"uc.4.france_nice.application_metric.tracking_memory_usage\",\n\t\t\t\t\"expId\": \"4\",\n\t\t\t\t\"action\": \"subscribe\",\n\t\t\t\t\"context\": {\n\t\t\t\t\t\"metricId\": \"tracking_memory_usage\",\n\t\t\t\t\t\"metricCollectionType\": \"GAUGE\",\n\t\t\t\t\t\"graph\": \"COUNTER\",\n\t\t\t\t\t\"name\": \"Memory usage in %\",\n\t\t\t\t\t\"unit\": \"%\",\n\t\t\t\t\t\"interval\": \"1s\"\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t]\n}"
+								},
+								"url": {
+									"raw": "{{PROTOCOL}}://{{IP_INTERNAL}}:{{PORT}}/dcm/publish/signalling.metric.application",
+									"protocol": "{{PROTOCOL}}",
+									"host": [
+										"{{IP_INTERNAL}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"dcm",
+										"publish",
+										"signalling.metric.application"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Publish data - Subscribe - KPIs",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"records\": [\n\t\t{\n\t\t\t\"value\": {\n\t\t\t\t\"topic\": \"uc.4.france_nice.kpi.service_delay\",\n\t\t\t\t\"expId\": \"4\",\n\t\t\t\t\"action\": \"subscribe\",\n\t\t\t\t\"context\": {\n\t\t\t\t\t\"kpiId\": \"service_delay\",\n\t\t\t\t\t\"graph\": \"LINE\",\n\t\t\t\t\t\"name\": \"kpi_name\",\n\t\t\t\t\t\"unit\": \"kpi_unit\",\n\t\t\t\t\t\"interval\": \"5s\"\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t]\n}"
+								},
+								"url": {
+									"raw": "{{PROTOCOL}}://{{IP_INTERNAL}}:{{PORT}}/dcm/publish/signalling.kpi",
+									"protocol": "{{PROTOCOL}}",
+									"host": [
+										"{{IP_INTERNAL}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"dcm",
+										"publish",
+										"signalling.kpi"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Publish data - Unsubscribe - Infrastructure metrics",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"records\": [\n\t\t{\n\t\t\t\"value\": {\n\t\t\t\t\"topic\": \"uc.4.france_nice.infrastructure_metric.expb_metricId\",\n\t\t\t\t\"expId\": \"4\",\n\t\t\t\t\"action\": \"unsubscribe\",\n\t\t\t\t\"context\": {\n\t\t\t\t\t\"metricId\": \"expb_metricId\",\n\t\t\t\t\t\"metricCollectionType\": \"CUMULATIVE\",\n\t\t\t\t\t\"graph\": \"LINE\",\n\t\t\t\t\t\"name\": \"expb_metricName\",\n\t\t\t\t\t\"unit\": \"expb_metricUnit\",\n\t\t\t\t\t\"interval\": \"5s\" \n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t]\n}"
+								},
+								"url": {
+									"raw": "{{PROTOCOL}}://{{IP_INTERNAL}}:{{PORT}}/dcm/publish/signalling.metric.infrastructure",
+									"protocol": "{{PROTOCOL}}",
+									"host": [
+										"{{IP_INTERNAL}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"dcm",
+										"publish",
+										"signalling.metric.infrastructure"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Publish data - Unsubscribe - Application metrics",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"records\": [\n\t\t{\n\t\t\t\"value\": {\n\t\t\t\t\"topic\": \"uc.4.france_nice.application_metric.tracked_devices\",\n\t\t\t\t\"expId\":\"4\", \n\t\t\t\t\"action\":\"unsubscribe\", \n\t\t\t\t\"context\": {\n\t\t\t\t\t\"metricId\": \"tracked_devices\",\n\t\t\t\t\t\"metricCollectionType\": \"CUMULATIVE\",\n\t\t\t\t\t\"graph\": \"PIE\",\n\t\t\t\t\t\"name\": \"Number of total tracked devices\",\n\t\t\t\t\t\"unit\": \"devices\",\n\t\t\t\t\t\"interval\": \"5s\"\n\t\t\t\t}\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"value\": {\n\t\t\t\t\"topic\":\"uc.4.france_nice.application_metric.processed_records\",\n\t\t\t\t\"expId\":\"4\",\n\t\t\t\t\"action\":\"unsubscribe\",\n\t\t\t\t\"context\": {\n\t\t\t\t\t\"metricId\": \"processed_records\",\n\t\t\t\t\t\"metricCollectionType\": \"CUMULATIVE\",\n\t\t\t\t\t\"graph\": \"GAUGE\",\n\t\t\t\t\t\"name\": \"Number of total processed records\",\n\t\t\t\t\t\"unit\": \"records\",\n\t\t\t\t\t\"interval\": \"5s\"\n\t\t\t\t}\n\t\t\t}\n\t\t},\n\t\t{ \n\t\t\t\"value\": {\n\t\t\t\t\"topic\": \"uc.4.france_nice.application_metric.tracking_response_time\",\n\t\t\t\t\"expId\": \"4\",\n\t\t\t\t\"action\": \"unsubscribe\",\n\t\t\t\t\"context\": {\n\t\t\t\t\t\"metricId\": \"tracking_response_time\",\n\t\t\t\t\t\"metricCollectionType\": \"GAUGE\",\n\t\t\t\t\t\"graph\": \"LINE\",\n\t\t\t\t\t\"name\": \"Max response time in milliseconds\",\n\t\t\t\t\t\"unit\": \"ms\",\n\t\t\t\t\t\"interval\": \"1s\"\n\t\t\t\t}\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"value\": {\n\t\t\t\t\"topic\": \"uc.4.france_nice.application_metric.tracking_memory_usage\",\n\t\t\t\t\"expId\": \"4\",\n\t\t\t\t\"action\": \"unsubscribe\",\n\t\t\t\t\"context\": {\n\t\t\t\t\t\"metricId\": \"tracking_memory_usage\",\n\t\t\t\t\t\"metricCollectionType\": \"GAUGE\",\n\t\t\t\t\t\"graph\": \"COUNTER\",\n\t\t\t\t\t\"name\": \"Memory usage in %\",\n\t\t\t\t\t\"unit\": \"%\",\n\t\t\t\t\t\"interval\": \"1s\"\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t]\n}"
+								},
+								"url": {
+									"raw": "{{PROTOCOL}}://{{IP_INTERNAL}}:{{PORT}}/dcm/publish/signalling.metric.application",
+									"protocol": "{{PROTOCOL}}",
+									"host": [
+										"{{IP_INTERNAL}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"dcm",
+										"publish",
+										"signalling.metric.application"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Publish data - Unsubscribe - KPIs",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"records\": [\n\t\t{\n\t\t\t\"value\": {\n\t\t\t\t\"topic\": \"uc.4.france_nice.kpi.service_delay\",\n\t\t\t\t\"expId\": \"4\",\n\t\t\t\t\"action\": \"unsubscribe\",\n\t\t\t\t\"context\": {\n\t\t\t\t\t\"kpiId\": \"service_delay\",\n\t\t\t\t\t\"graph\": \"LINE\",\n\t\t\t\t\t\"name\": \"kpi_name\",\n\t\t\t\t\t\"unit\": \"kpi_unit\",\n\t\t\t\t\t\"interval\": \"5s\"\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t]\n}"
+								},
+								"url": {
+									"raw": "{{PROTOCOL}}://{{IP_INTERNAL}}:{{PORT}}/dcm/publish/signalling.kpi",
+									"protocol": "{{PROTOCOL}}",
+									"host": [
+										"{{IP_INTERNAL}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"dcm",
+										"publish",
+										"signalling.kpi"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "d9284aeb-78d8-40e7-997c-8d3832a32980",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "2e60db01-ef5c-41f8-81c8-71c28b86a7dd",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "5tonic",
+					"item": [
+						{
+							"name": "Service status",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{PROTOCOL}}://{{IP_5TONIC}}:{{PORT}}/",
+									"protocol": "{{PROTOCOL}}",
+									"host": [
+										"{{IP_5TONIC}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Publish data - Subscribe - Infrastructure metrics",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"records\": [\n\t\t{\n\t\t\t\"value\": {\n\t\t\t\t\"topic\": \"uc.4.france_nice.infrastructure_metric.expb_metricId\",\n\t\t\t\t\"expId\": \"4\",\n\t\t\t\t\"action\": \"subscribe\",\n\t\t\t\t\"context\": {\n\t\t\t\t\t\"metricId\": \"expb_metricId\",\n\t\t\t\t\t\"metricCollectionType\": \"CUMULATIVE\",\n\t\t\t\t\t\"graph\": \"LINE\",\n\t\t\t\t\t\"name\": \"expb_metricName\",\n\t\t\t\t\t\"unit\": \"expb_metricUnit\",\n\t\t\t\t\t\"interval\": \"5s\" \n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t]\n}"
+								},
+								"url": {
+									"raw": "{{PROTOCOL}}://{{IP_5TONIC}}:{{PORT}}/dcm/publish/signalling.metric.infrastructure",
+									"protocol": "{{PROTOCOL}}",
+									"host": [
+										"{{IP_5TONIC}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"dcm",
+										"publish",
+										"signalling.metric.infrastructure"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Publish data - Subscribe - Application metrics",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"records\": [\n\t\t{\n\t\t\t\"value\": {\n\t\t\t\t\"topic\": \"uc.4.france_nice.application_metric.tracked_devices\",\n\t\t\t\t\"expId\":\"4\", \n\t\t\t\t\"action\":\"subscribe\", \n\t\t\t\t\"context\": {\n\t\t\t\t\t\"metricId\": \"tracked_devices\",\n\t\t\t\t\t\"metricCollectionType\": \"CUMULATIVE\",\n\t\t\t\t\t\"graph\": \"PIE\",\n\t\t\t\t\t\"name\": \"Number of total tracked devices\",\n\t\t\t\t\t\"unit\": \"devices\",\n\t\t\t\t\t\"interval\": \"5s\"\n\t\t\t\t}\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"value\": {\n\t\t\t\t\"topic\":\"uc.4.france_nice.application_metric.processed_records\",\n\t\t\t\t\"expId\":\"4\",\n\t\t\t\t\"action\":\"subscribe\",\n\t\t\t\t\"context\": {\n\t\t\t\t\t\"metricId\": \"processed_records\",\n\t\t\t\t\t\"metricCollectionType\": \"CUMULATIVE\",\n\t\t\t\t\t\"graph\": \"GAUGE\",\n\t\t\t\t\t\"name\": \"Number of total processed records\",\n\t\t\t\t\t\"unit\": \"records\",\n\t\t\t\t\t\"interval\": \"5s\"\n\t\t\t\t}\n\t\t\t}\n\t\t},\n\t\t{ \n\t\t\t\"value\": {\n\t\t\t\t\"topic\": \"uc.4.france_nice.application_metric.tracking_response_time\",\n\t\t\t\t\"expId\": \"4\",\n\t\t\t\t\"action\": \"subscribe\",\n\t\t\t\t\"context\": {\n\t\t\t\t\t\"metricId\": \"tracking_response_time\",\n\t\t\t\t\t\"metricCollectionType\": \"GAUGE\",\n\t\t\t\t\t\"graph\": \"LINE\",\n\t\t\t\t\t\"name\": \"Max response time in milliseconds\",\n\t\t\t\t\t\"unit\": \"ms\",\n\t\t\t\t\t\"interval\": \"1s\"\n\t\t\t\t}\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"value\": {\n\t\t\t\t\"topic\": \"uc.4.france_nice.application_metric.tracking_memory_usage\",\n\t\t\t\t\"expId\": \"4\",\n\t\t\t\t\"action\": \"subscribe\",\n\t\t\t\t\"context\": {\n\t\t\t\t\t\"metricId\": \"tracking_memory_usage\",\n\t\t\t\t\t\"metricCollectionType\": \"GAUGE\",\n\t\t\t\t\t\"graph\": \"COUNTER\",\n\t\t\t\t\t\"name\": \"Memory usage in %\",\n\t\t\t\t\t\"unit\": \"%\",\n\t\t\t\t\t\"interval\": \"1s\"\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t]\n}"
+								},
+								"url": {
+									"raw": "{{PROTOCOL}}://{{IP_5TONIC}}:{{PORT}}/dcm/publish/signalling.metric.application",
+									"protocol": "{{PROTOCOL}}",
+									"host": [
+										"{{IP_5TONIC}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"dcm",
+										"publish",
+										"signalling.metric.application"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Publish data - Subscribe - KPIs",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"records\": [\n\t\t{\n\t\t\t\"value\": {\n\t\t\t\t\"topic\": \"uc.4.france_nice.kpi.service_delay\",\n\t\t\t\t\"expId\": \"4\",\n\t\t\t\t\"action\": \"subscribe\",\n\t\t\t\t\"context\": {\n\t\t\t\t\t\"kpiId\": \"service_delay\",\n\t\t\t\t\t\"graph\": \"LINE\",\n\t\t\t\t\t\"name\": \"kpi_name\",\n\t\t\t\t\t\"unit\": \"kpi_unit\",\n\t\t\t\t\t\"interval\": \"5s\"\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t]\n}"
+								},
+								"url": {
+									"raw": "{{PROTOCOL}}://{{IP_5TONIC}}:{{PORT}}/dcm/publish/signalling.kpi",
+									"protocol": "{{PROTOCOL}}",
+									"host": [
+										"{{IP_5TONIC}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"dcm",
+										"publish",
+										"signalling.kpi"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Publish data - Unsubscribe - Infrastructure metrics",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"records\": [\n\t\t{\n\t\t\t\"value\": {\n\t\t\t\t\"topic\": \"uc.4.france_nice.infrastructure_metric.expb_metricId\",\n\t\t\t\t\"expId\": \"4\",\n\t\t\t\t\"action\": \"unsubscribe\",\n\t\t\t\t\"context\": {\n\t\t\t\t\t\"metricId\": \"expb_metricId\",\n\t\t\t\t\t\"metricCollectionType\": \"CUMULATIVE\",\n\t\t\t\t\t\"graph\": \"LINE\",\n\t\t\t\t\t\"name\": \"expb_metricName\",\n\t\t\t\t\t\"unit\": \"expb_metricUnit\",\n\t\t\t\t\t\"interval\": \"5s\" \n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t]\n}"
+								},
+								"url": {
+									"raw": "{{PROTOCOL}}://{{IP_5TONIC}}:{{PORT}}/dcm/publish/signalling.metric.infrastructure",
+									"protocol": "{{PROTOCOL}}",
+									"host": [
+										"{{IP_5TONIC}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"dcm",
+										"publish",
+										"signalling.metric.infrastructure"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Publish data - Unsubscribe - Application metrics",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"records\": [\n\t\t{\n\t\t\t\"value\": {\n\t\t\t\t\"topic\": \"uc.4.france_nice.application_metric.tracked_devices\",\n\t\t\t\t\"expId\":\"4\", \n\t\t\t\t\"action\":\"unsubscribe\", \n\t\t\t\t\"context\": {\n\t\t\t\t\t\"metricId\": \"tracked_devices\",\n\t\t\t\t\t\"metricCollectionType\": \"CUMULATIVE\",\n\t\t\t\t\t\"graph\": \"PIE\",\n\t\t\t\t\t\"name\": \"Number of total tracked devices\",\n\t\t\t\t\t\"unit\": \"devices\",\n\t\t\t\t\t\"interval\": \"5s\"\n\t\t\t\t}\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"value\": {\n\t\t\t\t\"topic\":\"uc.4.france_nice.application_metric.processed_records\",\n\t\t\t\t\"expId\":\"4\",\n\t\t\t\t\"action\":\"unsubscribe\",\n\t\t\t\t\"context\": {\n\t\t\t\t\t\"metricId\": \"processed_records\",\n\t\t\t\t\t\"metricCollectionType\": \"CUMULATIVE\",\n\t\t\t\t\t\"graph\": \"GAUGE\",\n\t\t\t\t\t\"name\": \"Number of total processed records\",\n\t\t\t\t\t\"unit\": \"records\",\n\t\t\t\t\t\"interval\": \"5s\"\n\t\t\t\t}\n\t\t\t}\n\t\t},\n\t\t{ \n\t\t\t\"value\": {\n\t\t\t\t\"topic\": \"uc.4.france_nice.application_metric.tracking_response_time\",\n\t\t\t\t\"expId\": \"4\",\n\t\t\t\t\"action\": \"unsubscribe\",\n\t\t\t\t\"context\": {\n\t\t\t\t\t\"metricId\": \"tracking_response_time\",\n\t\t\t\t\t\"metricCollectionType\": \"GAUGE\",\n\t\t\t\t\t\"graph\": \"LINE\",\n\t\t\t\t\t\"name\": \"Max response time in milliseconds\",\n\t\t\t\t\t\"unit\": \"ms\",\n\t\t\t\t\t\"interval\": \"1s\"\n\t\t\t\t}\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"value\": {\n\t\t\t\t\"topic\": \"uc.4.france_nice.application_metric.tracking_memory_usage\",\n\t\t\t\t\"expId\": \"4\",\n\t\t\t\t\"action\": \"unsubscribe\",\n\t\t\t\t\"context\": {\n\t\t\t\t\t\"metricId\": \"tracking_memory_usage\",\n\t\t\t\t\t\"metricCollectionType\": \"GAUGE\",\n\t\t\t\t\t\"graph\": \"COUNTER\",\n\t\t\t\t\t\"name\": \"Memory usage in %\",\n\t\t\t\t\t\"unit\": \"%\",\n\t\t\t\t\t\"interval\": \"1s\"\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t]\n}"
+								},
+								"url": {
+									"raw": "{{PROTOCOL}}://{{IP_5TONIC}}:{{PORT}}/dcm/publish/signalling.metric.application",
+									"protocol": "{{PROTOCOL}}",
+									"host": [
+										"{{IP_5TONIC}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"dcm",
+										"publish",
+										"signalling.metric.application"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Publish data - Unsubscribe - KPIs",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"records\": [\n\t\t{\n\t\t\t\"value\": {\n\t\t\t\t\"topic\": \"uc.4.france_nice.kpi.service_delay\",\n\t\t\t\t\"expId\": \"4\",\n\t\t\t\t\"action\": \"unsubscribe\",\n\t\t\t\t\"context\": {\n\t\t\t\t\t\"kpiId\": \"service_delay\",\n\t\t\t\t\t\"graph\": \"LINE\",\n\t\t\t\t\t\"name\": \"kpi_name\",\n\t\t\t\t\t\"unit\": \"kpi_unit\",\n\t\t\t\t\t\"interval\": \"5s\"\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t]\n}"
+								},
+								"url": {
+									"raw": "{{PROTOCOL}}://{{IP_5TONIC}}:{{PORT}}/dcm/publish/signalling.kpi",
+									"protocol": "{{PROTOCOL}}",
+									"host": [
+										"{{IP_5TONIC}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"dcm",
+										"publish",
+										"signalling.kpi"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "9e04e680-958e-441a-9c5a-b359df71227b",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "64d1155b-1f69-4967-a29f-b25e0eeb90bb",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "turin",
+					"item": [
+						{
+							"name": "Service status",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{PROTOCOL}}://{{IP_TURIN}}:{{PORT}}/",
+									"protocol": "{{PROTOCOL}}",
+									"host": [
+										"{{IP_TURIN}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Publish data - Subscribe - Infrastructure metrics",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"records\": [\n\t\t{\n\t\t\t\"value\": {\n\t\t\t\t\"topic\": \"uc.4.france_nice.infrastructure_metric.expb_metricId\",\n\t\t\t\t\"expId\": \"4\",\n\t\t\t\t\"action\": \"subscribe\",\n\t\t\t\t\"context\": {\n\t\t\t\t\t\"metricId\": \"expb_metricId\",\n\t\t\t\t\t\"metricCollectionType\": \"CUMULATIVE\",\n\t\t\t\t\t\"graph\": \"LINE\",\n\t\t\t\t\t\"name\": \"expb_metricName\",\n\t\t\t\t\t\"unit\": \"expb_metricUnit\",\n\t\t\t\t\t\"interval\": \"5s\" \n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t]\n}"
+								},
+								"url": {
+									"raw": "{{PROTOCOL}}://{{IP_TURIN}}:{{PORT}}/dcm/publish/signalling.metric.infrastructure",
+									"protocol": "{{PROTOCOL}}",
+									"host": [
+										"{{IP_TURIN}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"dcm",
+										"publish",
+										"signalling.metric.infrastructure"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Publish data - Subscribe - Application metrics",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"records\": [\n\t\t{\n\t\t\t\"value\": {\n\t\t\t\t\"topic\": \"uc.4.france_nice.application_metric.tracked_devices\",\n\t\t\t\t\"expId\":\"4\", \n\t\t\t\t\"action\":\"subscribe\", \n\t\t\t\t\"context\": {\n\t\t\t\t\t\"metricId\": \"tracked_devices\",\n\t\t\t\t\t\"metricCollectionType\": \"CUMULATIVE\",\n\t\t\t\t\t\"graph\": \"PIE\",\n\t\t\t\t\t\"name\": \"Number of total tracked devices\",\n\t\t\t\t\t\"unit\": \"devices\",\n\t\t\t\t\t\"interval\": \"5s\"\n\t\t\t\t}\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"value\": {\n\t\t\t\t\"topic\":\"uc.4.france_nice.application_metric.processed_records\",\n\t\t\t\t\"expId\":\"4\",\n\t\t\t\t\"action\":\"subscribe\",\n\t\t\t\t\"context\": {\n\t\t\t\t\t\"metricId\": \"processed_records\",\n\t\t\t\t\t\"metricCollectionType\": \"CUMULATIVE\",\n\t\t\t\t\t\"graph\": \"GAUGE\",\n\t\t\t\t\t\"name\": \"Number of total processed records\",\n\t\t\t\t\t\"unit\": \"records\",\n\t\t\t\t\t\"interval\": \"5s\"\n\t\t\t\t}\n\t\t\t}\n\t\t},\n\t\t{ \n\t\t\t\"value\": {\n\t\t\t\t\"topic\": \"uc.4.france_nice.application_metric.tracking_response_time\",\n\t\t\t\t\"expId\": \"4\",\n\t\t\t\t\"action\": \"subscribe\",\n\t\t\t\t\"context\": {\n\t\t\t\t\t\"metricId\": \"tracking_response_time\",\n\t\t\t\t\t\"metricCollectionType\": \"GAUGE\",\n\t\t\t\t\t\"graph\": \"LINE\",\n\t\t\t\t\t\"name\": \"Max response time in milliseconds\",\n\t\t\t\t\t\"unit\": \"ms\",\n\t\t\t\t\t\"interval\": \"1s\"\n\t\t\t\t}\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"value\": {\n\t\t\t\t\"topic\": \"uc.4.france_nice.application_metric.tracking_memory_usage\",\n\t\t\t\t\"expId\": \"4\",\n\t\t\t\t\"action\": \"subscribe\",\n\t\t\t\t\"context\": {\n\t\t\t\t\t\"metricId\": \"tracking_memory_usage\",\n\t\t\t\t\t\"metricCollectionType\": \"GAUGE\",\n\t\t\t\t\t\"graph\": \"COUNTER\",\n\t\t\t\t\t\"name\": \"Memory usage in %\",\n\t\t\t\t\t\"unit\": \"%\",\n\t\t\t\t\t\"interval\": \"1s\"\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t]\n}"
+								},
+								"url": {
+									"raw": "{{PROTOCOL}}://{{IP_TURIN}}:{{PORT}}/dcm/publish/signalling.metric.application",
+									"protocol": "{{PROTOCOL}}",
+									"host": [
+										"{{IP_TURIN}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"dcm",
+										"publish",
+										"signalling.metric.application"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Publish data - Subscribe - KPIs",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"records\": [\n\t\t{\n\t\t\t\"value\": {\n\t\t\t\t\"topic\": \"uc.4.france_nice.kpi.service_delay\",\n\t\t\t\t\"expId\": \"4\",\n\t\t\t\t\"action\": \"subscribe\",\n\t\t\t\t\"context\": {\n\t\t\t\t\t\"kpiId\": \"service_delay\",\n\t\t\t\t\t\"graph\": \"LINE\",\n\t\t\t\t\t\"name\": \"kpi_name\",\n\t\t\t\t\t\"unit\": \"kpi_unit\",\n\t\t\t\t\t\"interval\": \"5s\"\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t]\n}"
+								},
+								"url": {
+									"raw": "{{PROTOCOL}}://{{IP_TURIN}}:{{PORT}}/dcm/publish/signalling.kpi",
+									"protocol": "{{PROTOCOL}}",
+									"host": [
+										"{{IP_TURIN}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"dcm",
+										"publish",
+										"signalling.kpi"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Publish data - Unsubscribe - Infrastructure metrics",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"records\": [\n\t\t{\n\t\t\t\"value\": {\n\t\t\t\t\"topic\": \"uc.4.france_nice.infrastructure_metric.expb_metricId\",\n\t\t\t\t\"expId\": \"4\",\n\t\t\t\t\"action\": \"unsubscribe\",\n\t\t\t\t\"context\": {\n\t\t\t\t\t\"metricId\": \"expb_metricId\",\n\t\t\t\t\t\"metricCollectionType\": \"CUMULATIVE\",\n\t\t\t\t\t\"graph\": \"LINE\",\n\t\t\t\t\t\"name\": \"expb_metricName\",\n\t\t\t\t\t\"unit\": \"expb_metricUnit\",\n\t\t\t\t\t\"interval\": \"5s\" \n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t]\n}"
+								},
+								"url": {
+									"raw": "{{PROTOCOL}}://{{IP_TURIN}}:{{PORT}}/dcm/publish/signalling.metric.infrastructure",
+									"protocol": "{{PROTOCOL}}",
+									"host": [
+										"{{IP_TURIN}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"dcm",
+										"publish",
+										"signalling.metric.infrastructure"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Publish data - Unsubscribe - Application metrics",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"records\": [\n\t\t{\n\t\t\t\"value\": {\n\t\t\t\t\"topic\": \"uc.4.france_nice.application_metric.tracked_devices\",\n\t\t\t\t\"expId\":\"4\", \n\t\t\t\t\"action\":\"unsubscribe\", \n\t\t\t\t\"context\": {\n\t\t\t\t\t\"metricId\": \"tracked_devices\",\n\t\t\t\t\t\"metricCollectionType\": \"CUMULATIVE\",\n\t\t\t\t\t\"graph\": \"PIE\",\n\t\t\t\t\t\"name\": \"Number of total tracked devices\",\n\t\t\t\t\t\"unit\": \"devices\",\n\t\t\t\t\t\"interval\": \"5s\"\n\t\t\t\t}\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"value\": {\n\t\t\t\t\"topic\":\"uc.4.france_nice.application_metric.processed_records\",\n\t\t\t\t\"expId\":\"4\",\n\t\t\t\t\"action\":\"unsubscribe\",\n\t\t\t\t\"context\": {\n\t\t\t\t\t\"metricId\": \"processed_records\",\n\t\t\t\t\t\"metricCollectionType\": \"CUMULATIVE\",\n\t\t\t\t\t\"graph\": \"GAUGE\",\n\t\t\t\t\t\"name\": \"Number of total processed records\",\n\t\t\t\t\t\"unit\": \"records\",\n\t\t\t\t\t\"interval\": \"5s\"\n\t\t\t\t}\n\t\t\t}\n\t\t},\n\t\t{ \n\t\t\t\"value\": {\n\t\t\t\t\"topic\": \"uc.4.france_nice.application_metric.tracking_response_time\",\n\t\t\t\t\"expId\": \"4\",\n\t\t\t\t\"action\": \"unsubscribe\",\n\t\t\t\t\"context\": {\n\t\t\t\t\t\"metricId\": \"tracking_response_time\",\n\t\t\t\t\t\"metricCollectionType\": \"GAUGE\",\n\t\t\t\t\t\"graph\": \"LINE\",\n\t\t\t\t\t\"name\": \"Max response time in milliseconds\",\n\t\t\t\t\t\"unit\": \"ms\",\n\t\t\t\t\t\"interval\": \"1s\"\n\t\t\t\t}\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"value\": {\n\t\t\t\t\"topic\": \"uc.4.france_nice.application_metric.tracking_memory_usage\",\n\t\t\t\t\"expId\": \"4\",\n\t\t\t\t\"action\": \"unsubscribe\",\n\t\t\t\t\"context\": {\n\t\t\t\t\t\"metricId\": \"tracking_memory_usage\",\n\t\t\t\t\t\"metricCollectionType\": \"GAUGE\",\n\t\t\t\t\t\"graph\": \"COUNTER\",\n\t\t\t\t\t\"name\": \"Memory usage in %\",\n\t\t\t\t\t\"unit\": \"%\",\n\t\t\t\t\t\"interval\": \"1s\"\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t]\n}"
+								},
+								"url": {
+									"raw": "{{PROTOCOL}}://{{IP_TURIN}}:{{PORT}}/dcm/publish/signalling.metric.application",
+									"protocol": "{{PROTOCOL}}",
+									"host": [
+										"{{IP_TURIN}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"dcm",
+										"publish",
+										"signalling.metric.application"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Publish data - Unsubscribe - KPIs",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"records\": [\n\t\t{\n\t\t\t\"value\": {\n\t\t\t\t\"topic\": \"uc.4.france_nice.kpi.service_delay\",\n\t\t\t\t\"expId\": \"4\",\n\t\t\t\t\"action\": \"unsubscribe\",\n\t\t\t\t\"context\": {\n\t\t\t\t\t\"kpiId\": \"service_delay\",\n\t\t\t\t\t\"graph\": \"LINE\",\n\t\t\t\t\t\"name\": \"kpi_name\",\n\t\t\t\t\t\"unit\": \"kpi_unit\",\n\t\t\t\t\t\"interval\": \"5s\"\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t]\n}"
+								},
+								"url": {
+									"raw": "{{PROTOCOL}}://{{IP_TURIN}}:{{PORT}}/dcm/publish/signalling.kpi",
+									"protocol": "{{PROTOCOL}}",
+									"host": [
+										"{{IP_TURIN}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"dcm",
+										"publish",
+										"signalling.kpi"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a67186e6-6fa4-4aa0-8823-9d6f10bac6ab",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "90fb3fcb-2e43-4f45-acc8-f42439658b42",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "40357288-854a-4e63-9bff-01bfbd2968c5",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "eed884a5-9639-41b6-9716-a3794e2d2a86",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
