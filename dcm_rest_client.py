@@ -48,9 +48,23 @@ def spec():
 
 def create_kafka_topic(topic):
     logger.info("Creating topic %s in Kafka", topic)
-    # TODO. Define replication correctly. Use expId if needed.
-    # TODO: partition, 2 minimum. I can fix it. No key.
-    subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--replication-factor', '1', '--partitions', '1', '--topic', topic])
+
+    # Old way to create topics:
+    #subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--replication-factor', '1', '--partitions', '1', '--topic', topic])
+    # TODO (if needed). 2 partitions minimum without key
+
+    if "signalling." in topic:
+        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--topic', topic, '--replica-assignment', '1'])
+    elif ".spain_" in topic:
+        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--topic', topic, '--replica-assignment', '1:2'])
+    elif ".italy_" in topic:
+        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--topic', topic, '--replica-assignment', '1:3'])
+    elif ".france_" in topic:
+        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--topic', topic, '--replica-assignment', '1:4'])
+    elif ".greece_" in topic:
+        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--topic', topic, '--replica-assignment', '1:5'])
+    else:
+        logger.warning("The topic %s has a bad format", topic)
 
 @app.route('/dcm/subscribe', methods=['POST'])
 def subscribe():
@@ -81,7 +95,7 @@ def subscribe():
         logger.warning("Format not valid")
         return 'Format not valid', 400
     try:
-        # TODO. Check client-id and group-id. Group-id should ensure an unique consumer. If we have severeal consumers in a group, data can be shared and we don't want it.
+        # TODO (if needed). Check client-id and group-id. Group-id should ensure an unique consumer. If we have severeal consumers in a group, data can be shared and we don't want it.
         data = request.get_json()
         logger.info("Data received: %s", data)
         create_kafka_topic(data["topic"])
@@ -136,7 +150,7 @@ def unsubscribe():
 
 def publish_in_kafka(topic, data):
     logger.info("Publish data in Kafka topic %s", topic)
-    # TODO: Key? No, do RR between partitions. If I use the same key, it uses the same partition.
+    # TODO (if needed). Key? No, do RR between partitions. If I use the same key, it uses the same partition.
     futures = producer.send(topic=topic, value=json.dumps(data))
     response = futures.get()
     logger.info("Response from Kafka: %s", response)
@@ -272,7 +286,7 @@ def publish(topic):
         else:
             # Data received from another component (e.g. Data Shipper using the REST API). Just publish the JSON chain received.
             # In this case, it is supposed that topic has been already created in Kafka beforehand.
-            #TODO: review this publish operation.
+            # TODO (if needed). Review this publish operation.
             publish_in_kafka(topic, data)
     except Exception as e:
         logger.error("Error while parsing request")
