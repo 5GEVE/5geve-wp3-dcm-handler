@@ -2,9 +2,11 @@
 
 This repository contains the logic needed for providing a REST API to the Data Collection Manager, in order to handle automatically the life cycle of this component (related to topic subscription/withdrawal and publish operations).
 
-Usage: `sudo python3 dcm_rest_client.py [--dcm_ip_address <dcm_ip_address>] [--port <port_number>] [--log <log_level>]`
+Usage: `sudo python3 dcm_rest_client.py [--dcm_ip_address <dcm_ip_address>] [--zookeeper_ip_address <zookeeper_ip_address>] [--kafka_port <kafka_port_number>] [--port <port_number>] [--log <log_level>]`
 
-Default DCM IP address is localhost, default port is 8090, and default log level is info.
+Default DCM and ZooKeeper IP addresses are localhost, default Kafka port is 9092, default listening port is 8090, and default log level is info.
+
+Note that this version corresponds to the Dockerized environment of the Monitoring platform.
 
 ## Application API
 

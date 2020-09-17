@@ -13,7 +13,6 @@ import json
 
 app = Flask(__name__)
 logger = logging.getLogger("DCMRestClient")
-kafka_port = "9092"
 signalling_metric_infrastructure = "signalling.metric.infrastructure"
 signalling_metric_application = "signalling.metric.application"
 signalling_kpi = "signalling.kpi"
@@ -50,19 +49,19 @@ def create_kafka_topic(topic):
     logger.info("Creating topic %s in Kafka", topic)
 
     # Old way to create topics:
-    #subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--replication-factor', '1', '--partitions', '1', '--topic', topic])
+    #subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', zookeeper_ip_address+":2181", '--replication-factor', '1', '--partitions', '1', '--topic', topic])
     # TODO (if needed). 2 partitions minimum without key
 
     if "signalling." in topic:
-        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--topic', topic, '--replica-assignment', '1'])
+        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', zookeeper_ip_address+":2181", '--topic', topic, '--replica-assignment', '1'])
     elif ".spain_" in topic:
-        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--topic', topic, '--replica-assignment', '1:2'])
+        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', zookeeper_ip_address+":2181", '--topic', topic, '--replica-assignment', '1:2'])
     elif ".italy_" in topic:
-        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--topic', topic, '--replica-assignment', '1:3'])
+        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', zookeeper_ip_address+":2181", '--topic', topic, '--replica-assignment', '1:3'])
     elif ".france_" in topic:
-        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--topic', topic, '--replica-assignment', '1:4'])
+        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', zookeeper_ip_address+":2181", '--topic', topic, '--replica-assignment', '1:4'])
     elif ".greece_" in topic:
-        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--topic', topic, '--replica-assignment', '1:5'])
+        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', zookeeper_ip_address+":2181", '--topic', topic, '--replica-assignment', '1:5'])
     else:
         logger.warning("The topic %s has a bad format", topic)
 
@@ -108,7 +107,7 @@ def subscribe():
 def delete_kafka_topic(topic):
     logger.info("Deleting topic %s in Kafka", topic)
     # Do not forget to set delete.topic.enable=true in config/server.properties.
-    subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--delete', '--zookeeper', dcm_ip_address+":2181", '--topic', topic])
+    subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--delete', '--zookeeper', zookeeper_ip_address+":2181", '--topic', topic])
 
 @app.route('/dcm/unsubscribe', methods=['DELETE'])
 def unsubscribe():
@@ -244,7 +243,7 @@ def publish(topic):
 
                         kafka_topic = value["value"]["topic"]
 
-                        if subprocess.check_output(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--list', '--zookeeper', dcm_ip_address+":2181"]).decode("utf-8").find(kafka_topic) == -1:
+                        if subprocess.check_output(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--list', '--zookeeper', zookeeper_ip_address+":2181"]).decode("utf-8").find(kafka_topic) == -1:
                             
                             # Subscribe operation: create the Kafka topic.
                             # Notify subscribers from the corresponding signalling topic.
@@ -265,7 +264,7 @@ def publish(topic):
 
                         kafka_topic = value["value"]["topic"]
 
-                        if subprocess.check_output(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--list', '--zookeeper', dcm_ip_address+":2181"]).decode("utf-8").find(kafka_topic) != -1:
+                        if subprocess.check_output(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--list', '--zookeeper', zookeeper_ip_address+":2181"]).decode("utf-8").find(kafka_topic) != -1:
 
                             # Notify subscribers from the corresponding signalling topic.
                             # Unsubscribe operation: delete the Kafka topic.
@@ -308,6 +307,14 @@ if __name__ == "__main__":
         help='DCM IP address, default IP is localhost',
         default='localhost')
     parser.add_argument(
+        "--zookeeper_ip_address",
+        help='ZooKeeper IP address, default IP is localhost',
+        default='localhost')
+    parser.add_argument(
+        "--kafka_port",
+        help='Kafka port to publish data in signalling topics, default port is 9092',
+        default="9092")
+    parser.add_argument(
         "--port",
         type=checkValidPort,
         help='The port you want to use as an endpoint, default port is 8090',
@@ -335,6 +342,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
     global dcm_ip_address 
     dcm_ip_address= str(args.dcm_ip_address)
+    global zookeeper_ip_address
+    zookeeper_ip_address = str(args.zookeeper_ip_address)
+    global kafka_port
+    kafka_port = str(args.kafka_port)
     global producer 
     producer = KafkaProducer(bootstrap_servers = dcm_ip_address + ":" + kafka_port, value_serializer=lambda x: json.dumps(x).encode('utf-8'))
     logger.info("Serving DCMRestClient on port %s", str(args.port))
