@@ -46,7 +46,7 @@ pip3 install -r requirements.txt
 Finally, execute the script.
 
 ```shell
-sudo python3 dcm_rest_client.py --dcm_ip_address localhost --port 8090 --log info
+sudo python3 dcm_rest_client.py --dcm_ip_address localhost --zookeeer_ip_address localhost --kafka_port 9092 --port 8090 --log info
 ```
 
 ## Copyright
