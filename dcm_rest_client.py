@@ -55,14 +55,16 @@ def create_kafka_topic(topic):
 
     if "signalling." in topic:
         subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--topic', topic, '--replica-assignment', '1'])
+    if ".kpi." in topic:
+        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--topic', topic, '--replica-assignment', '1'])
     elif ".spain_" in topic:
-        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--topic', topic, '--replica-assignment', '1:2'])
+        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--topic', topic, '--replica-assignment', '2:1'])
     elif ".italy_" in topic:
-        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--topic', topic, '--replica-assignment', '1:3'])
+        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--topic', topic, '--replica-assignment', '3:1'])
     elif ".france_" in topic:
-        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--topic', topic, '--replica-assignment', '1:4'])
+        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--topic', topic, '--replica-assignment', '4:1'])
     elif ".greece_" in topic:
-        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--topic', topic, '--replica-assignment', '1:5'])
+        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--topic', topic, '--replica-assignment', '5:1'])
     else:
         logger.warning("The topic %s has a bad format", topic)
 
