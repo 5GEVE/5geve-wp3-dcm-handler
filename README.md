@@ -1,23 +1,14 @@
-# dcm-python script
+# 5geve-wp3-dcm-handler script
 
 This repository contains the logic needed for providing a REST API to the Data Collection Manager, in order to handle automatically the life cycle of this component (related to topic subscription/withdrawal and publish operations).
 
-Usage: `sudo python3 dcm_rest_client.py [--dcm_ip_address <dcm_ip_address>] [--port <port_number>] [--log <log_level>]`
+Usage: `sudo python3 dcm_rest_client.py [--dcm_ip_address <dcm_ip_address>] [--port <port_number>] [--spanish_site_plugin_ip_port <spanish_site_plugin_ip_port>] [--italian_site_plugin_ip_port <italian_site_plugin_ip_port>] [--french_site_plugin_ip_port <french_site_plugin_ip_port>] [--greek_site_plugin_ip_port <greek_site_plugin_ip_port>] [--log <log_level>]`
 
-Default DCM IP address is localhost, default port is 8090, and default log level is info.
+Default DCM IP address is localhost, default port is 8090, default site brokers IP-ports are default:8090, and default log level is info.
 
 ## Application API
 
-The REST API provided by the `dcm_rest_client.py` script implements the following interface:
-
-| Endpoint | Description | Input | Output |
-| --- | --- | --- | --- |
-| GET / | Check if this logic is running or not | - | 200 - OK |
-| POST /dcm/subscribe | Subscribe to a given topic | It receives the following JSON chain in the request body: `{'expId': <exp_id>, 'topic': <topic_name>}` | 201 - accepted, 400 - error parsing request |
-| DELETE /dcm/unsubscribe | Unsubscribe to a given topic | It receives the following JSON chain in the request body: `{'expId': <exp_id>, 'topic': <topic_name>}` | 201 - accepted, 400 - error parsing request |
-| POST /dcm/publish/<topic> | Publish data in the topic <topic> | It receives the topic name, <topic>, in the URL. It receives the following JSON chain in the request body in the case of signalling topics: `{'records': [{'value': {'expId': <exp_id>, 'action': ['subscribe'\|'unsubscribe'], 'topic': <topic_name>}}, ...]}`. However, in case of requesting from a Data shipper, the format depends on the component that is publishing the data. | 201 - accepted, 400 - error parsing request |
-
-(TODO - OpenAPI & new fields in messages received)
+The REST API provided by the `dcm_rest_client.py` script can be seen in the corresponding api-docs files in this repository.
 
 ## Steps to be followed
 
@@ -44,9 +35,5 @@ pip3 install -r requirements.txt
 Finally, execute the script.
 
 ```shell
-sudo python3 dcm_rest_client.py --dcm_ip_address localhost --port 8090 --log info
+sudo python3 dcm_rest_client.py --dcm_ip_address localhost --port 8090 --spanish_site_plugin_ip_port localhost:8090 --italian_site_plugin_ip_port localhost:8090 --french_site_plugin_ip_port localhost:8090 --greek_site_plugin_ip_port localhost:8090 --log info
 ```
-
-## Copyright
-
-This work has been done by Telcaria Ideas S.L. for the 5G EVE European project under the [Apache 2.0 License](LICENSE).

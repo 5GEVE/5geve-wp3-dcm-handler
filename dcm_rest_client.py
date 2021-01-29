@@ -49,24 +49,58 @@ def spec():
 def create_kafka_topic(topic):
     logger.info("Creating topic %s in Kafka", topic)
 
-    # Old way to create topics:
-    #subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--replication-factor', '1', '--partitions', '1', '--topic', topic])
     # TODO (if needed). 2 partitions minimum without key
 
     if "signalling." in topic:
-        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--topic', topic, '--replica-assignment', '1'])
-    if ".kpi." in topic:
-        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--topic', topic, '--replica-assignment', '1'])
+        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--replication-factor', '1', '--partitions', '1', '--topic', topic])
+    elif ".kpi." in topic:
+        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--replication-factor', '1', '--partitions', '1', '--topic', topic])
     elif ".spain_" in topic:
-        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--topic', topic, '--replica-assignment', '2:1'])
+        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--replication-factor', '1', '--partitions', '1', '--topic', topic])
+        # Then, send the topic name to the corresponding broker and create the MirrorMaker process
+        logger.info("Sending topic %s to Spanish site", topic)
+        r = requests.post(spanish_site_url + topic)
+        logger.info("Response from Spanish site: Code %s", r)
+        if r.status_code == 200:
+            logger.info("Create KafkaMirror process for topic %s with Spanish site", topic)
+            subprocess.call(['/bin/bash', '/usr/bin/dcm/create_kafka_mirror.sh', "spanish", topic])
+        elif r.status_code == 500:
+            raise Exception("Topic %s not created in Spanish site", topic)
     elif ".italy_" in topic:
-        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--topic', topic, '--replica-assignment', '3:1'])
+        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--replication-factor', '1', '--partitions', '1', '--topic', topic])
+        # Then, send the topic name to the corresponding broker and create the MirrorMaker process
+        logger.info("Sending topic %s to Italian site", topic)
+        r = requests.post(italian_site_url + topic)
+        logger.info("Response from Italian site: Code %s", r)
+        if r.status_code == 200:
+            logger.info("Create KafkaMirror process for topic %s with Italian site", topic)
+            subprocess.call(['/bin/bash', '/usr/bin/dcm/create_kafka_mirror.sh', "italian", topic])
+        elif r.status_code == 500:
+            raise Exception("Topic %s not created in Italian site", topic)
     elif ".france_" in topic:
-        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--topic', topic, '--replica-assignment', '4:1'])
+        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--replication-factor', '1', '--partitions', '1', '--topic', topic])
+        # Then, send the topic name to the corresponding broker and create the MirrorMaker process
+        logger.info("Sending topic %s to French site", topic)
+        r = requests.post(french_site_url + topic)
+        logger.info("Response from French site: Code %s", r)
+        if r.status_code == 200:
+            logger.info("Create KafkaMirror process for topic %s with French site", topic)
+            subprocess.call(['/bin/bash', '/usr/bin/dcm/create_kafka_mirror.sh', "french", topic])
+        elif r.status_code == 500:
+            raise Exception("Topic %s not created in French site", topic)
     elif ".greece_" in topic:
-        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--topic', topic, '--replica-assignment', '5:1'])
+        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--replication-factor', '1', '--partitions', '1', '--topic', topic])
+        # Then, send the topic name to the corresponding broker and create the MirrorMaker process
+        logger.info("Sending topic %s to Greek site", topic)
+        r = requests.post(greek_site_url + topic)
+        logger.info("Response from Greek site: Code %s", r)
+        if r.status_code == 200:
+            logger.info("Create KafkaMirror process for topic %s with Greek site", topic)
+            subprocess.call(['/bin/bash', '/usr/bin/dcm/create_kafka_mirror.sh', "greek", topic])
+        elif r.status_code == 500:
+            raise Exception("Topic %s not created in Greek site", topic)
     else:
-        logger.warning("The topic %s has a bad format", topic)
+        raise Exception("The topic %s has a bad format", topic)
 
 @app.route('/dcm/subscribe', methods=['POST'])
 def subscribe():
@@ -108,9 +142,76 @@ def subscribe():
     return '', 201
 
 def delete_kafka_topic(topic):
-    logger.info("Deleting topic %s in Kafka", topic)
     # Do not forget to set delete.topic.enable=true in config/server.properties.
-    subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--delete', '--zookeeper', dcm_ip_address+":2181", '--topic', topic])
+
+    if "signalling." in topic:
+        logger.info("Deleting topic %s in Kafka", topic)
+        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--delete', '--zookeeper', dcm_ip_address+":2181", '--topic', topic])
+    elif ".kpi." in topic:
+        logger.info("Deleting topic %s in Kafka", topic)
+        subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--delete', '--zookeeper', dcm_ip_address+":2181", '--topic', topic])
+    elif ".spain_" in topic:
+        # Firstly, delete Kafka Mirror process
+        logger.info("Delete KafkaMirror process for topic %s with Spanish site", topic)
+        subprocess.call(['/bin/bash', '/usr/bin/dcm/delete_kafka_mirror.sh', topic])
+
+        # Then, send the topic name to the corresponding broker
+        logger.info("Sending topic %s to Spanish site", topic)
+        r = requests.delete(spanish_site_url + topic)
+        logger.info("Response from Spanish site: Code %s", r)
+        if r.status_code == 200:
+            # Finally, delete the topic
+            logger.info("Deleting topic %s in Kafka", topic)
+            subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--delete', '--zookeeper', dcm_ip_address+":2181", '--topic', topic])
+        elif r.status_code == 500:
+            raise Exception("Topic %s not deleted in Spanish site", topic)
+    elif ".italy_" in topic:
+        # Firstly, delete Kafka Mirror process
+        logger.info("Delete KafkaMirror process for topic %s with Italian site", topic)
+        subprocess.call(['/bin/bash', '/usr/bin/dcm/delete_kafka_mirror.sh', topic])
+
+        # Then, send the topic name to the corresponding broker
+        logger.info("Sending topic %s to Italian site", topic)
+        r = requests.delete(italian_site_url + topic)
+        logger.info("Response from Italian site: Code %s", r)
+        if r.status_code == 200:
+            # Finally, delete the topic
+            logger.info("Deleting topic %s in Kafka", topic)
+            subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--delete', '--zookeeper', dcm_ip_address+":2181", '--topic', topic])
+        elif r.status_code == 500:
+            raise Exception("Topic %s not deleted in Italian site", topic)
+    elif ".france_" in topic:
+        # Firstly, delete Kafka Mirror process
+        logger.info("Delete KafkaMirror process for topic %s with French site", topic)
+        subprocess.call(['/bin/bash', '/usr/bin/dcm/delete_kafka_mirror.sh', topic])
+
+        # Then, send the topic name to the corresponding broker
+        logger.info("Sending topic %s to French site", topic)
+        r = requests.delete(french_site_url + topic)
+        logger.info("Response from French site: Code %s", r)
+        if r.status_code == 200:
+            # Finally, delete the topic
+            logger.info("Deleting topic %s in Kafka", topic)
+            subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--delete', '--zookeeper', dcm_ip_address+":2181", '--topic', topic])
+        elif r.status_code == 500:
+            raise Exception("Topic %s not deleted in French site", topic)
+    elif ".greece_" in topic:
+        # Firstly, delete Kafka Mirror process
+        logger.info("Delete KafkaMirror process for topic %s with Greek site", topic)
+        subprocess.call(['/bin/bash', '/usr/bin/dcm/delete_kafka_mirror.sh', topic])
+
+        # Then, send the topic name to the corresponding broker
+        logger.info("Sending topic %s to Greek site", topic)
+        r = requests.delete(greek_site_url + topic)
+        logger.info("Response from Greek site: Code %s", r)
+        if r.status_code == 200:
+            # Finally, delete the topic
+            logger.info("Deleting topic %s in Kafka", topic)
+            subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--delete', '--zookeeper', dcm_ip_address+":2181", '--topic', topic])
+        elif r.status_code == 500:
+            raise Exception("Topic %s not deleted in Greek site", topic)
+    else:
+        raise Exception("The topic %s has a bad format", topic)
 
 @app.route('/dcm/unsubscribe', methods=['DELETE'])
 def unsubscribe():
@@ -315,6 +416,22 @@ if __name__ == "__main__":
         help='The port you want to use as an endpoint, default port is 8090',
         default="8090")
     parser.add_argument(
+        "--spanish_site_plugin_ip_port",
+        help='Spanish Kafka broker site plugin IP:port',
+        default='localhost:8090')
+    parser.add_argument(
+        "--italian_site_plugin_ip_port",
+        help='Italian Kafka broker site plugin IP:port',
+        default='localhost:8090')
+    parser.add_argument(
+        "--french_site_plugin_ip_port",
+        help='French Kafka broker site plugin IP:port',
+        default='localhost:8090')
+    parser.add_argument(
+        "--greek_site_plugin_ip_port",
+        help='Greek Kafka broker site plugin IP:port',
+        default='localhost:8090')
+    parser.add_argument(
         "--log",
         help='Sets the Log Level output, default level is "info"',
         choices=[
@@ -324,6 +441,7 @@ if __name__ == "__main__":
             "warning"],
         nargs='?',
         default='info')
+
     args = parser.parse_args()
     numeric_level = getattr(logging, str(args.log).upper(), None)
     if not isinstance(numeric_level, int):
@@ -334,10 +452,22 @@ if __name__ == "__main__":
         level=numeric_level)
     logging.getLogger("DCMRestClient").setLevel(numeric_level)
     logging.getLogger("requests.packages.urllib3").setLevel(logging.ERROR)
+
     args = parser.parse_args()
     global dcm_ip_address 
     dcm_ip_address= str(args.dcm_ip_address)
     global producer 
     producer = KafkaProducer(bootstrap_servers = dcm_ip_address + ":" + kafka_port, value_serializer=lambda x: json.dumps(x).encode('utf-8'))
+
+    global spanish_site_url 
+    spanish_site_url = "http://" + str(args.spanish_site_plugin_ip_port) + "/dcm_plugin/"
+    global italian_site_url 
+    italian_site_url = "http://" + str(args.italian_site_plugin_ip_port) + "/dcm_plugin/"
+    global french_site_url 
+    french_site_url = "http://" + str(args.french_site_plugin_ip_port) + "/dcm_plugin/"
+    global greek_site_url 
+    greek_site_url = "http://" + str(args.greek_site_plugin_ip_port) + "/dcm_plugin/"
+
+
     logger.info("Serving DCMRestClient on port %s", str(args.port))
     serve(app, host='0.0.0.0', port=args.port)
