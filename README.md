@@ -37,3 +37,7 @@ Finally, execute the script.
 ```shell
 sudo python3 dcm_rest_client.py --dcm_ip_address localhost --port 8090 --spanish_site_plugin_ip_port localhost:8090 --italian_site_plugin_ip_port localhost:8090 --french_site_plugin_ip_port localhost:8090 --greek_site_plugin_ip_port localhost:8090 --log info
 ```
+
+## Copyright
+
+This work has been done by Telcaria Ideas S.L. for the 5G EVE European project under the [Apache 2.0 License](LICENSE).
