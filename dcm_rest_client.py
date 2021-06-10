@@ -18,6 +18,37 @@ signalling_metric_infrastructure = "signalling.metric.infrastructure"
 signalling_metric_application = "signalling.metric.application"
 signalling_kpi = "signalling.kpi"
 
+
+# Start one MirrorMaker per each site, blacklisting signalling and)
+def start_mirror(site):
+    """
+    Opens a mirrormaker with a site in order to mirror metric topics.
+    Signalling and KPI topics are blacklisted with regex.
+    """
+    print("Start MirrorMaker for " + site);
+    subprocess.Popen(
+        [
+            "/bin/bash",
+            "/opt/kafka/bin/kafka-run-class.sh",
+            "kafka.tools.MirrorMaker",
+            "--consumer.config",
+            "/usr/bin/dcm/" + site + "_consumer.config",
+            "--num.streams",
+            "4",
+            "--producer.config",
+            "/usr/bin/dcm/producer.config",
+            "--whitelist",
+            "'^.*\.application_metric\..*$,^.*\.infrastructure_metric\..*$'",
+        ],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
+start_mirror("spanish")
+start_mirror("italian")
+start_mirror("french")
+start_mirror("greek")
+
+
 @app.route('/', methods=['GET'])
 def server_status():
     """
@@ -57,47 +88,35 @@ def create_kafka_topic(topic):
         subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--replication-factor', '1', '--partitions', '1', '--topic', topic])
     elif ".spain_" in topic:
         subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--replication-factor', '1', '--partitions', '1', '--topic', topic])
-        # Then, send the topic name to the corresponding broker and create the MirrorMaker process
+        # Then, send the topic name to the corresponding broker
         logger.info("Sending topic %s to Spanish site", topic)
         r = requests.post(spanish_site_url + topic)
         logger.info("Response from Spanish site: Code %s", r)
-        if r.status_code == 200:
-            logger.info("Create KafkaMirror process for topic %s with Spanish site", topic)
-            subprocess.call(['/bin/bash', '/usr/bin/dcm/create_kafka_mirror.sh', "spanish", topic])
-        elif r.status_code == 500:
+        if r.status_code == 500:
             raise Exception("Topic %s not created in Spanish site", topic)
     elif ".italy_" in topic:
         subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--replication-factor', '1', '--partitions', '1', '--topic', topic])
-        # Then, send the topic name to the corresponding broker and create the MirrorMaker process
+        # Then, send the topic name to the corresponding broker
         logger.info("Sending topic %s to Italian site", topic)
         r = requests.post(italian_site_url + topic)
         logger.info("Response from Italian site: Code %s", r)
-        if r.status_code == 200:
-            logger.info("Create KafkaMirror process for topic %s with Italian site", topic)
-            subprocess.call(['/bin/bash', '/usr/bin/dcm/create_kafka_mirror.sh', "italian", topic])
-        elif r.status_code == 500:
+        if r.status_code == 500:
             raise Exception("Topic %s not created in Italian site", topic)
     elif ".france_" in topic:
         subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--replication-factor', '1', '--partitions', '1', '--topic', topic])
-        # Then, send the topic name to the corresponding broker and create the MirrorMaker process
+        # Then, send the topic name to the corresponding broker
         logger.info("Sending topic %s to French site", topic)
         r = requests.post(french_site_url + topic)
         logger.info("Response from French site: Code %s", r)
-        if r.status_code == 200:
-            logger.info("Create KafkaMirror process for topic %s with French site", topic)
-            subprocess.call(['/bin/bash', '/usr/bin/dcm/create_kafka_mirror.sh', "french", topic])
-        elif r.status_code == 500:
+        if r.status_code == 500:
             raise Exception("Topic %s not created in French site", topic)
     elif ".greece_" in topic:
         subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--create', '--zookeeper', dcm_ip_address+":2181", '--replication-factor', '1', '--partitions', '1', '--topic', topic])
-        # Then, send the topic name to the corresponding broker and create the MirrorMaker process
+        # Then, send the topic name to the corresponding broker
         logger.info("Sending topic %s to Greek site", topic)
         r = requests.post(greek_site_url + topic)
         logger.info("Response from Greek site: Code %s", r)
-        if r.status_code == 200:
-            logger.info("Create KafkaMirror process for topic %s with Greek site", topic)
-            subprocess.call(['/bin/bash', '/usr/bin/dcm/create_kafka_mirror.sh', "greek", topic])
-        elif r.status_code == 500:
+        if r.status_code == 500:
             raise Exception("Topic %s not created in Greek site", topic)
     else:
         raise Exception("The topic %s has a bad format", topic)
@@ -151,10 +170,6 @@ def delete_kafka_topic(topic):
         logger.info("Deleting topic %s in Kafka", topic)
         subprocess.call(['/bin/bash', '/opt/kafka/bin/kafka-topics.sh', '--delete', '--zookeeper', dcm_ip_address+":2181", '--topic', topic])
     elif ".spain_" in topic:
-        # Firstly, delete Kafka Mirror process
-        logger.info("Delete KafkaMirror process for topic %s with Spanish site", topic)
-        subprocess.call(['/bin/bash', '/usr/bin/dcm/delete_kafka_mirror.sh', topic])
-
         # Then, send the topic name to the corresponding broker
         logger.info("Sending topic %s to Spanish site", topic)
         r = requests.delete(spanish_site_url + topic)
@@ -166,10 +181,6 @@ def delete_kafka_topic(topic):
         elif r.status_code == 500:
             raise Exception("Topic %s not deleted in Spanish site", topic)
     elif ".italy_" in topic:
-        # Firstly, delete Kafka Mirror process
-        logger.info("Delete KafkaMirror process for topic %s with Italian site", topic)
-        subprocess.call(['/bin/bash', '/usr/bin/dcm/delete_kafka_mirror.sh', topic])
-
         # Then, send the topic name to the corresponding broker
         logger.info("Sending topic %s to Italian site", topic)
         r = requests.delete(italian_site_url + topic)
@@ -181,10 +192,6 @@ def delete_kafka_topic(topic):
         elif r.status_code == 500:
             raise Exception("Topic %s not deleted in Italian site", topic)
     elif ".france_" in topic:
-        # Firstly, delete Kafka Mirror process
-        logger.info("Delete KafkaMirror process for topic %s with French site", topic)
-        subprocess.call(['/bin/bash', '/usr/bin/dcm/delete_kafka_mirror.sh', topic])
-
         # Then, send the topic name to the corresponding broker
         logger.info("Sending topic %s to French site", topic)
         r = requests.delete(french_site_url + topic)
@@ -196,10 +203,6 @@ def delete_kafka_topic(topic):
         elif r.status_code == 500:
             raise Exception("Topic %s not deleted in French site", topic)
     elif ".greece_" in topic:
-        # Firstly, delete Kafka Mirror process
-        logger.info("Delete KafkaMirror process for topic %s with Greek site", topic)
-        subprocess.call(['/bin/bash', '/usr/bin/dcm/delete_kafka_mirror.sh', topic])
-
         # Then, send the topic name to the corresponding broker
         logger.info("Sending topic %s to Greek site", topic)
         r = requests.delete(greek_site_url + topic)
