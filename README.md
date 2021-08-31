@@ -32,6 +32,15 @@ After this, install the required packages for this Python script, which can be f
 pip3 install -r requirements.txt
 ```
 
+Start the Kafka mirrors you need using the provided script and configuration file example for a sample site (edit the `BROKER_IP` parameter).
+Specify the site name as parameter and keep it running.
+Run one instance for each site you have.
+
+```
+cd kafka_mirror
+./create_kafka_mirror.sh spanish
+```
+
 Finally, execute the script.
 
 ```shell
