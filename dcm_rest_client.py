@@ -18,36 +18,39 @@ signalling_metric_infrastructure = "signalling.metric.infrastructure"
 signalling_metric_application = "signalling.metric.application"
 signalling_kpi = "signalling.kpi"
 
-
+"""
+The creation of MirrorMaker processes has been moved to dedicated systemd services.
+This allows to check logs more easily, setup restart on failure.
+We leave this code for future reference.
+"""
 # Start one MirrorMaker per each site, blacklisting signalling and)
-def start_mirror(site):
-    """
-    Opens a mirrormaker with a site in order to mirror metric topics.
-    Signalling and KPI topics are blacklisted with regex.
-    """
-    print("Start MirrorMaker for " + site);
-    subprocess.Popen(
-        [
-            "/bin/bash",
-            "/opt/kafka/bin/kafka-run-class.sh",
-            "kafka.tools.MirrorMaker",
-            "--consumer.config",
-            "/usr/bin/dcm/" + site + "_consumer.config",
-            "--num.streams",
-            "4",
-            "--producer.config",
-            "/usr/bin/dcm/producer.config",
-            "--whitelist",
-            "'^.*\.application_metric\..*$,^.*\.infrastructure_metric\..*$'",
-        ],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-    )
-start_mirror("spanish")
-start_mirror("italian")
-start_mirror("french")
-start_mirror("greek")
-
+# def start_mirror(site):
+#     """
+#     Opens a mirrormaker with a site in order to mirror metric topics.
+#     Signalling and KPI topics are blacklisted with regex.
+#     """
+#     print("Start MirrorMaker for " + site);
+#     subprocess.Popen(
+#         [
+#             "/bin/bash",
+#             "/opt/kafka/bin/kafka-run-class.sh",
+#             "kafka.tools.MirrorMaker",
+#             "--consumer.config",
+#             "/usr/bin/dcm/" + site + "_consumer.config",
+#             "--num.streams",
+#             "2",
+#             "--producer.config",
+#             "/usr/bin/dcm/producer.config",
+#             "--whitelist",
+#             "'^.*\.application_metric\..*$,^.*\.infrastructure_metric\..*$'",
+#         ],
+#         stdout=subprocess.PIPE,
+#         stderr=subprocess.STDOUT,
+#     )
+# start_mirror("spanish")
+# start_mirror("italian")
+# start_mirror("french")
+# start_mirror("greek")
 
 @app.route('/', methods=['GET'])
 def server_status():
